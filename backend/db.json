@@ -1,0 +1,10 @@
+{
+  "resources": [
+    { "id": 1, "titulo": "Projeto Inicial", "autor": "Ana Silva", "data": "2025-10-01T10:00:00Z", "status": "ativo" },
+    { "id": 2, "titulo": "Nova Ideia", "autor": "Carlos Mendes", "data": "2025-10-05T15:30:00Z", "status": "pendente" }
+  ],
+  "subresources": [
+    { "id": 101, "resourceId": 1, "conteudo": "Ótimo ponto!", "autor": "Bruno Lima", "data": "2025-10-02T12:00:00Z" },
+    { "id": 102, "resourceId": 1, "conteudo": "Precisa de revisão.", "autor": "Daniela Souza", "data": "2025-10-02T14:30:00Z" }
+  ]
+}
