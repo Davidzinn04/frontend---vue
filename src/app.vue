@@ -24,7 +24,8 @@
 
 <script setup>
 import { ref, onMounted } from 'vue';
-import { resourceService } from '@/services/resourceService';
+import resourceService from './services/resourceService'; // <- usar import default (removido { })
+import subresourceService from './services/subresourceService';
 import ResourceList from '@/components/ResourceList.vue';
 import ResourceForm from '@/components/ResourceForm.vue';
 import ResourceFilters from '@/components/ResourceFilters.vue';

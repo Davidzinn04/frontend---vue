@@ -14,7 +14,7 @@
 
 <script setup>
 import { ref, watch, computed } from 'vue';
-import { subresourceService } from '@/services/subresourceService';
+import subresourceService from '../services/subresourceService';
 // import { useNotification } from '@/composables/useNotification';
 
 const props = defineProps({

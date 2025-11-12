@@ -24,10 +24,8 @@
 </template>
 
 <script setup>
-import { ref, watch, onMounted } from 'vue';
-import { subresourceService } from '@/services/subresourceService';
-import SubResourceForm from './SubResourceForm.vue';
-// import { useNotification } from '@/composables/useNotification';
+import { ref, onMounted } from 'vue';
+import subresourceService from '../services/subresourceService'; // <- use import default
 
 const props = defineProps({
   resourceId: {
@@ -39,7 +37,6 @@ const props = defineProps({
 const subresources = ref([]);
 const editingSubresource = ref(null);
 const loading = ref(false);
-// const { showNotification } = useNotification();
 
 const fetchSubresources = async (id) => {
   if (!id) return;
@@ -48,7 +45,6 @@ const fetchSubresources = async (id) => {
     const response = await subresourceService.getByResourceId(id);
     subresources.value = response.data;
   } catch (error) {
-    // showNotification('Erro ao carregar sub-recursos.', 'error');
     console.error(error);
   } finally {
     loading.value = false;
@@ -56,9 +52,6 @@ const fetchSubresources = async (id) => {
 };
 
 onMounted(() => fetchSubresources(props.resourceId));
-
-// Recarrega a lista se o resourceId mudar (embora improvável neste contexto)
-watch(() => props.resourceId, fetchSubresources);
 
 const handleSubresourceSave = async (data) => {
   editingSubresource.value = null; // Fecha o formulário
@@ -73,10 +66,8 @@ const deleteSubresource = async (id) => {
   if (confirm('Deseja excluir este sub-recurso?')) {
     try {
       await subresourceService.remove(id);
-      // showNotification('Sub-recurso deletado com sucesso!', 'success');
       fetchSubresources(props.resourceId);
     } catch (error) {
-      // showNotification('Falha ao deletar sub-recurso.', 'error');
       console.error(error);
     }
   }

@@ -1,64 +1,62 @@
 <template>
   <div class="resource-filters">
-    <h3>Filtros da Listagem (+2 pts por filtro)</h3>
-    
-    <input 
-      type="text" 
-      v-model="filters.text" 
-      placeholder="Pesquisar por título ou autor..." 
-      @input="applyFilters"
+    <input
+      type="text"
+      v-model="search"
+      placeholder="Pesquisar..."
+      aria-label="Pesquisar"
     />
-
-    <select v-model="filters.status" @change="applyFilters">
-      <option value="">Todos os Status</option>
-      <option value="ativo">Ativo</option>
-      <option value="pendente">Pendente</option>
+    <select v-model="status" aria-label="Filtrar por status">
+      <option value="all">Todos</option>
+      <option value="ativo">Ativos</option>
+      <option value="pendente">Pendentes</option>
+      <option value="inativo">Inativos</option>
     </select>
-    
-    <button @click="resetFilters">Limpar Filtros</button>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import { debounce } from 'lodash'; // Recomendado usar debounce para input de texto
+import { ref, watch } from 'vue'
 
-const emit = defineEmits(['apply-filters']);
+const emit = defineEmits(['filter'])
 
-const filters = ref({
-  text: '', // Mapeia para `titulo_like` ou `q` no json-server
-  status: '', // Mapeia para `status` no json-server
-  // startDate: '', 
-});
+const search = ref('')
+const status = ref('all')
 
-const mapFilters = () => {
-  const mapped = {};
-  
-  if (filters.value.text) {
-    // json-server usa _like para pesquisa parcial (ex: titulo_like=termo) ou q (pesquisa em todos os campos)
-    mapped.q = filters.value.text; 
+function debounce(fn, wait = 300) {
+  let timer = null
+  return (...args) => {
+    clearTimeout(timer)
+    timer = setTimeout(() => fn(...args), wait)
   }
-  if (filters.value.status) {
-    mapped.status = filters.value.status;
-  }
-  // if (filters.value.startDate) {
-  //   mapped.data_gte = filters.value.startDate; // Filtro por data maior ou igual
-  // }
-  
-  return mapped;
-};
+}
 
-// Função com debounce para evitar muitas requisições
-const applyFilters = debounce(() => {
-  emit('apply-filters', mapFilters());
-}, 300);
+const applyFilters = () => {
+  emit('filter', { search: search.value.trim(), status: status.value })
+}
 
-const resetFilters = () => {
-  filters.value = {
-    text: '',
-    status: '',
-    // startDate: '',
-  };
-  emit('apply-filters', {});
-};
+const debouncedApply = debounce(applyFilters, 350)
+
+// mudanças no input usam debounce; select aplica imediatamente
+watch(search, () => debouncedApply())
+watch(status, () => applyFilters())
 </script>
+
+<style scoped>
+.resource-filters {
+  display:flex;
+  gap:0.5rem;
+  margin-bottom:1rem;
+}
+.resource-filters input {
+  flex:1;
+  padding:0.5rem;
+  border:1px solid #d1d5db;
+  border-radius:6px;
+}
+.resource-filters select {
+  padding:0.5rem;
+  border:1px solid #d1d5db;
+  border-radius:6px;
+}
+</style>
