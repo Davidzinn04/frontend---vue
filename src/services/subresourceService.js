@@ -1,23 +1,28 @@
 import api from './api';
 
-const SUBRESOURCE_URL = '/subresources';
-
-export const subresourceService = {
-  // Read (Listagem por ID do Recurso Principal)
-  getByResourceId(resourceId) {
-    // Filtra pelo campo resourceId no db.json (ex: /subresources?resourceId=1)
-    return api.get(`${SUBRESOURCE_URL}?resourceId=${resourceId}`);
+export default {
+  async list(params) {
+    const res = await api.get('/subresources', { params });
+    return res.data;
   },
-  // Create
-  create(data) {
-    return api.post(SUBRESOURCE_URL, { ...data, id: Date.now() });
+  async listByResourceId(resourceId) {
+    const res = await api.get('/subresources', { params: { resourceId } });
+    return res.data;
   },
-  // Update
-  update(id, data) {
-    return api.put(`${SUBRESOURCE_URL}/${id}`, data);
+  async get(id) {
+    const res = await api.get(`/subresources/${id}`);
+    return res.data;
   },
-  // Delete
-  remove(id) {
-    return api.delete(`${SUBRESOURCE_URL}/${id}`);
+  async create(payload) {
+    const res = await api.post('/subresources', payload);
+    return res.data;
   },
+  async update(id, payload) {
+    const res = await api.put(`/subresources/${id}`, payload);
+    return res.data;
+  },
+  async remove(id) {
+    const res = await api.delete(`/subresources/${id}`);
+    return res.data;
+  }
 };
