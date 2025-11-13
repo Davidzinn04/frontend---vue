@@ -26,10 +26,10 @@
 import { ref, onMounted } from 'vue';
 import resourceService from './services/resourceService'; // <- usar import default (removido { })
 import subresourceService from './services/subresourceService';
-import ResourceList from '@/components/ResourceList.vue';
-import ResourceForm from '@/components/ResourceForm.vue';
-import ResourceFilters from '@/components/ResourceFilters.vue';
-import Notification from '@/components/Notification.vue';
+import ResourceList from './components/ResourceList.vue';
+import ResourceForm from './components/ResourceForm.vue';
+import ResourceFilters from './components/ResourceFilters.vue';
+import Notification from './components/Notification.vue';
 // import { useNotification } from '@/composables/useNotification'; // Se estiver usando um Composable
 
 const resources = ref([]);

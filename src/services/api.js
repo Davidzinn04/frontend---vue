@@ -1,10 +1,12 @@
 import axios from 'axios';
 
 const envUrl = import.meta.env.VITE_API_URL;
-const fallbackUrl = 'http://localhost:3000'; // servidor mock que vamos subir
-const baseURL = envUrl || fallbackUrl;
+// Força URL relativa em desenvolvimento para garantir que o Vite dev server
+// faça o proxy e evite problemas de CORS (útil em Codespaces / GitHub.dev).
+// Em produção (`import.meta.env.PROD`) usamos `VITE_API_URL` quando definido.
+const baseURL = (import.meta.env.DEV ? '' : (envUrl ?? ''));
 
-console.log('[API] baseURL =', baseURL);
+console.log('[API] baseURL =', baseURL || '[relative]');
 
 const api = axios.create({
   baseURL,

@@ -1,5 +1,5 @@
 <template>
-  <div class="resource-filters">
+  <form class="resource-filters" @submit.prevent="applyFilters">
     <input
       type="text"
       v-model="search"
@@ -12,13 +12,14 @@
       <option value="pendente">Pendentes</option>
       <option value="inativo">Inativos</option>
     </select>
-  </div>
+    <button type="submit" aria-label="Aplicar filtros">Pesquisar</button>
+  </form>
 </template>
 
 <script setup>
 import { ref, watch } from 'vue'
 
-const emit = defineEmits(['filter'])
+const emit = defineEmits(['apply-filters'])
 
 const search = ref('')
 const status = ref('all')
@@ -32,7 +33,7 @@ function debounce(fn, wait = 300) {
 }
 
 const applyFilters = () => {
-  emit('filter', { search: search.value.trim(), status: status.value })
+  emit('apply-filters', { search: search.value.trim(), status: status.value })
 }
 
 const debouncedApply = debounce(applyFilters, 350)

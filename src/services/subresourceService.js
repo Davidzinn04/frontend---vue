@@ -9,6 +9,10 @@ export default {
     const res = await api.get('/subresources', { params: { resourceId } });
     return res.data;
   },
+  // Compatibilidade: alguns componentes chamam `getByResourceId`
+  getByResourceId(resourceId) {
+    return this.listByResourceId(resourceId);
+  },
   async get(id) {
     const res = await api.get(`/subresources/${id}`);
     return res.data;

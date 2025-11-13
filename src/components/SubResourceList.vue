@@ -13,12 +13,12 @@
     </ul>
 
     <button @click="editingSubresource = {}" v-if="!editingSubresource">Adicionar Comentário</button>
-    <SubResourceForm 
-      v-if="editingSubresource || creatingNew"
-      :resourceId="resourceId" 
-      :model="editingSubresource" 
-      @save="handleSubresourceSave" 
-      @cancel="editingSubresource = null" 
+    <SubResourceForm
+      v-if="editingSubresource"
+      :resourceId="resourceId"
+      :model="editingSubresource"
+      @save="handleSubresourceSave"
+      @cancel="editingSubresource = null"
     />
   </div>
 </template>
@@ -26,6 +26,7 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import subresourceService from '../services/subresourceService'; // <- use import default
+import SubResourceForm from './SubResourceForm.vue';
 
 const props = defineProps({
   resourceId: {
@@ -43,7 +44,15 @@ const fetchSubresources = async (id) => {
   loading.value = true;
   try {
     const response = await subresourceService.getByResourceId(id);
-    subresources.value = response.data;
+    // O serviço pode devolver `res.data` (array) ou o próprio array.
+    // Normaliza para garantir que `subresources.value` seja sempre um array.
+    if (response && Array.isArray(response)) {
+      subresources.value = response;
+    } else if (response && response.data && Array.isArray(response.data)) {
+      subresources.value = response.data;
+    } else {
+      subresources.value = [];
+    }
   } catch (error) {
     console.error(error);
   } finally {
