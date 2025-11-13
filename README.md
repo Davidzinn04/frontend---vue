@@ -23,11 +23,11 @@ Este projeto implementa o CRUD de um Recurso Principal e um Sub-Recurso relacion
     ```bash
     json-server --watch db.json --port 3000
     ```
-    O servidor estará rodando em `http://localhost:3000`.
+    O servidor estará rodando em `http://localhost:3000` a configuração padrão está em uma poorta de workspace MUDE.
 
 ### 2. Inicializar o Frontend
 
-1.  Navegue até a pasta `frontend/`:
+1.  Volte a raiz do projeto `/`:
     ```bash
     cd ../frontend
     ```
@@ -53,9 +53,9 @@ Este projeto implementa o CRUD de um Recurso Principal e um Sub-Recurso relacion
 ## 📌 Requisitos Adicionais (Checklist)
 
 * **Filtros:** (Implementar pelo menos 2)
-    * [ ] Pesquisa por texto (`titulo_like`)
-    * [ ] Filtro por status
+    * [X] Pesquisa por texto (`titulo_like`)
+    * [X] Filtro por status
 * **Mensagens/Estados:** (Implementar pelo menos 3)
-    * [ ] Validação de formulário (`ResourceForm.vue`)
-    * [ ] Confirmação antes de deletar (`App.vue`)
-    * [ ] Mensagem de lista vazia (`ResourceList.vue`)
+    * [X] Validação de formulário (`ResourceForm.vue`)
+    * [X] Confirmação antes de deletar (`App.vue`)
+    * [X] Mensagem de lista vazia (`ResourceList.vue`)
