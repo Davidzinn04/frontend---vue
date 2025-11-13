@@ -47,6 +47,8 @@ const fetchResources = async (filters = {}) => {
   currentFilters.value = filters;
   try {
     const response = await resourceService.getAll(filters);
+    // Debug: log what the API retornou (ajuda a entender porque a lista não muda)
+    try { console.debug('[App] fetchResources response.data:', response.data); } catch(e){}
     resources.value = response.data;
   } catch (error) {
     // showNotification('Erro ao carregar recursos.', 'error');
