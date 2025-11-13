@@ -27,10 +27,7 @@ Este projeto implementa o CRUD de um Recurso Principal e um Sub-Recurso relacion
 
 ### 2. Inicializar o Frontend
 
-1.  Volte a raiz do projeto `/`:
-    ```bash
-    cd ../frontend
-    ```
+1.  Volte a raiz do projeto `/`
 2.  Instale as dependências:
     ```bash
     npm install
