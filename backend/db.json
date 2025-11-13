@@ -13,11 +13,6 @@
       "autor": "Carlos Mendes",
       "data": "2025-10-05T15:30:00Z",
       "status": "pendente"
-    },
-    {
-      "id": "6c5b",
-      "titulo": "list",
-      "autor": "ana silva 2"
     }
   ],
   "subresources": [
@@ -34,6 +29,12 @@
       "conteudo": "Precisa de revisão.",
       "autor": "Daniela Souza",
       "data": "2025-10-02T14:30:00Z"
+    },
+    {
+      "id": "842f",
+      "conteudo": "Que recurso bom",
+      "autor": "igor",
+      "resourceId": "2"
     }
   ]
 }
